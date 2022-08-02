@@ -1,12 +1,14 @@
 import inquirer from "inquirer";
 import "dotenv/config";
 import createReactJs from "./createReactJs.js";
-import installDependencies from "./installDependencies.js";
+import installDevDependencies from "./installDevDependencies.js";
 import projectPath from "./projectPath.js";
 import cloneRepo from "./cloneRepo.js";
 import configureProject from "./configureProject.js";
+import installDependencies from "./installDependencies.js";
+import handlePackageJson from "./handlePackageJson.js";
 
-var createdProjectPath = "";
+let createdProjectPath = "";
 
 inquirer
   .prompt([
@@ -26,7 +28,7 @@ inquirer
       type: "checkbox",
       name: "addDependencies",
       message: "Please choose dependencies to install 📦",
-      choices: ["MUI", "esLint", "Prettier", "SCSS", "none"],
+      choices: ["MUI", "esLint", "Prettier","JEST", "none"],
     },
   ])
   .then(({ path, createProject, addDependencies }) => {
@@ -41,7 +43,9 @@ inquirer
       if (isCreated) {
         createdProjectPath = `${pathName}/${createProject}`;
 
-        const isInstalled = installDependencies(
+        installDependencies(createdProjectPath)
+
+        const isInstalled = installDevDependencies(
           addDependencies,
           createdProjectPath
         );
@@ -55,6 +59,9 @@ inquirer
     if (isCloned) {
       configureProject(createdProjectPath);
     }
+  })
+  .then(() =>{
+    handlePackageJson(createdProjectPath)
   })
   .catch((error) => {
     console.error(error);

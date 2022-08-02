@@ -1,52 +1,48 @@
 import child_process from "child_process";
 
-function installDependencies(dependency, createdProjectPath) {
+function installDependencies(createdProjectPath) {
   console.log("=====Installing dependencies =====");
-  dependency.map((dep) => {
-    switch (dep.toLowerCase()) {
-      case "mui":
-        console.log("Installing MUI");
 
-        child_process.execSync(
-          `cd ${createdProjectPath} && npm i @mui/material @emotion/react @emotion/styled`
-        );
-        break;
-      case "eslint":
-        console.log("Installing esLint");
-        child_process.execSync(
-          `cd ${createdProjectPath} && npm i eslint --save-dev`
-        );
+  console.log("Installing Formik");
+  child_process.execSync(
+    `cd ${createdProjectPath} && npm i formik`
+  );
 
-        console.log("Installing TS esLint-Plugin");
-        child_process.execSync(
-          `cd ${createdProjectPath} && npm i @typescript-eslint/eslint-plugin --save-dev`
-        );
+  console.log("Installing Yup");
 
-        console.log("Installing TS esLint/Parse");
-        child_process.execSync(
-          `cd ${createdProjectPath} && npm i @typescript-eslint/parser --save-dev`
-        );
-        break;
-      case "prettier":
-        console.log("Installing Prettier");
-        child_process.execSync(
-          `cd ${createdProjectPath} && npm i prettier --save-dev`
-        );
-        break;
+  child_process.execSync(
+    `cd ${createdProjectPath} && npm i yup`
+  );
 
-      case "scss":
-        console.log("Installing SASS/SCSS");
-        child_process.execSync(
-          `cd ${createdProjectPath} && npm i @types/node-sass --save-dev`
-        );
-        break;
+  console.log("Installing React Router");
 
-      default:
-        break;
-    }
+  child_process.execSync(
+    `cd ${createdProjectPath} && npm i react-router`
+  );
 
-    console.log("Completed");
-  });
-  return true
+  console.log("Installing React Router DOM");
+
+  child_process.execSync(
+    `cd ${createdProjectPath} && npm i react-router-dom`
+  );
+
+
+  console.log("Installing Env Cmd");
+  child_process.execSync(
+    `cd ${createdProjectPath} && npm i env-cmd`
+  );
+  
+  console.log("Installing Axios");
+
+  child_process.execSync(
+    `cd ${createdProjectPath} && npm i axios`
+  );
+
+  // console.log("Installing SASS");
+
+  // child_process.execSync(
+  //   `cd ${createdProjectPath} && npm i node-sass`
+  // );
+
 }
 export default installDependencies;

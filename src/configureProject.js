@@ -9,14 +9,20 @@ function configureProject(createdProjectPath) {
      cp -r src ${createdProjectPath}
     `
   );
-  // TODO: inject scripts to existing pkj.son
-  // console.log("Copy package json script");
-  // child_process.execSync(
-  //   `
-  //       cd React-Framework
-  //       cp -r package.json ${path}
-  //       `
-  // );
+
+  console.log("Copy vscode ext");
+  child_process.execSync(
+    `cd ${createdProjectPath}/React-Framework
+     cp -r .vscode ${createdProjectPath}
+    `
+  );
+
+  console.log("Copy public ");
+  child_process.execSync(
+    `cd ${createdProjectPath}/React-Framework
+     cp -r public ${createdProjectPath}
+    `
+  );
 
   console.log("Copy tsconfig.json");
   child_process.execSync(
@@ -25,10 +31,38 @@ function configureProject(createdProjectPath) {
       `
   );
 
-  console.log("Copy README");
+  console.log("Copy .eslintignore");
   child_process.execSync(
     `cd ${createdProjectPath}/React-Framework
-       cp -r README.md ${createdProjectPath}
+       cp -r .eslintignore ${createdProjectPath}
+      `
+  );
+
+  console.log("Copy .eslintrc");
+  child_process.execSync(
+    `cd ${createdProjectPath}/React-Framework
+       cp -r .eslintrc ${createdProjectPath}
+      `
+  );
+
+  console.log("Copy .prettierrc");
+  child_process.execSync(
+    `cd ${createdProjectPath}/React-Framework
+       cp -r .prettierrc ${createdProjectPath}
+      `
+  );
+
+  console.log("Copy .versionrc.json");
+  child_process.execSync(
+    `cd ${createdProjectPath}/React-Framework
+       cp -r .versionrc.json ${createdProjectPath}
+      `
+  );
+
+  console.log("Copy README CHANGELOG LICENSE");
+  child_process.execSync(
+    `cd ${createdProjectPath}/React-Framework
+       cp -r README.md CHANGELOG.md LICENSE.md ${createdProjectPath}
       `
   );
 
@@ -39,7 +73,35 @@ function configureProject(createdProjectPath) {
       `
   );
 
-  console.log("Done!")
+  console.log("Deleting App.css");
+  child_process.execSync(
+    `cd ${createdProjectPath}/src
+       rm -r App.css
+      `
+  );
+
+  console.log("Deleting index.css");
+  child_process.execSync(
+    `cd ${createdProjectPath}/src
+       rm -r index.css
+      `
+  );
+
+  console.log("Deleting App.test.tsx");
+  child_process.execSync(
+    `cd ${createdProjectPath}/src
+       rm -r App.test.tsx
+      `
+  );
+
+  console.log("Deleting logo.svg");
+  child_process.execSync(
+    `cd ${createdProjectPath}/src
+       rm -r logo.svg
+      `
+  );
+
+  console.log("Done!");
 }
 
 export default configureProject;
