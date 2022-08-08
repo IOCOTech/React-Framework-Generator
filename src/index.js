@@ -8,8 +8,6 @@ import configureProject from "./configureProject.js";
 import installDependencies from "./installDependencies.js";
 import handlePackageJson from "./handlePackageJson.js";
 
-let createdProjectPath = "";
-
 inquirer
   .prompt([
     {
@@ -39,28 +37,27 @@ inquirer
 
   .then(([isValidPath, pathName, createProject, addDependencies]) => {
     if (isValidPath) {
-      const isCreated = createReactJs(pathName, createProject);
+      const [isCreated, path] = createReactJs(pathName, createProject);
       if (isCreated) {
-        createdProjectPath = `${pathName}/${createProject}`;
 
-        installDependencies(createdProjectPath)
+        installDependencies(path)
 
         const isInstalled = installDevDependencies(
           addDependencies,
-          createdProjectPath
+          path
         );
         if (isInstalled) {
-          return cloneRepo(createdProjectPath, process.env.REPO);
+          return cloneRepo(path, process.env.REPO);
         }
       }
     }
   })
-  .then((isCloned) => {
+  .then(([isCloned,createdProjectPath]) => {
     if (isCloned) {
-      configureProject(createdProjectPath);
+      return configureProject(createdProjectPath);
     }
   })
-  .then(() =>{
+  .then((createdProjectPath) =>{
     handlePackageJson(createdProjectPath)
   })
   .catch((error) => {

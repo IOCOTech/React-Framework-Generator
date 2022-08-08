@@ -1,8 +1,8 @@
-var opsys = process.platform;
+let opsys = process.platform;
 
 function formatPath(path) {
   if (opsys == "win32" || opsys == "win64") {
-    path = path.replace("/", "\\");
+    return path.replace("/", "\\");
   } else {
     return path;
   }
